@@ -56,7 +56,7 @@ new #[Layout('layouts.guest')] class extends Component {
             $validated = $this->validate([
                 'first_name' => ['required', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . Admin::class],
                 'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             ]);
 
@@ -66,12 +66,12 @@ new #[Layout('layouts.guest')] class extends Component {
                 'last_name' => ['required', 'string', 'max:255'],
                 'specialization' => ['required', 'string', 'max:255'],
                 'certification' => ['required', 'string', 'max:255'],
-                'street_address' => ['required', 'string', 'max:255'],
                 'years_of_experience' => ['required', 'string', 'max:255'],
                 'phone' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . Advisor::class],
                 'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             ]);
+
 
         } else {
             $validated = $this->validate([
@@ -87,7 +87,6 @@ new #[Layout('layouts.guest')] class extends Component {
                 'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             ]);
         }
-
 
         $validated['password'] = Hash::make($validated['password']);
 
