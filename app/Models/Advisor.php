@@ -12,6 +12,7 @@ class Advisor extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
+        'user_id',
         'first_name',
         'user_type',
         'last_name',
@@ -32,10 +33,6 @@ class Advisor extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 
 }

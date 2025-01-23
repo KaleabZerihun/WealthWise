@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\User\AddAssetPage;
+use App\Livewire\User\ManagePortfolio;
+use App\Livewire\User\PortfolioPage;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Advisor\Dashboard as AdvisorDashboard;
@@ -7,9 +10,9 @@ use App\Livewire\Advisor\Dashboard as AdvisorDashboard;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth','verified'])->group(function() {
+    Route::get('/dashboard', \App\Livewire\User\Dashboard::class)->name('dashboard');
+});
 
 
 // Different user profile routes
@@ -30,12 +33,21 @@ Route::prefix('advisor')
     });
 
 
-//user tool and user appointment
+//user pages
 Route::middleware(['auth'])->group(function () {
     Route::get('/user-tool', \App\Livewire\User\Tools::class)->name('user.tools');
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/user-appointments', \App\Livewire\User\Appointments::class)->name('user.appointments');
+});
+Route::middleware(['auth'])->group(function() {
+    Route::get('/portfolio', PortfolioPage::class)->name('portfolio');
+});
+Route::middleware(['auth'])->group(function() {
+    Route::get('/manage-portfolio', ManagePortfolio::class)->name('portfolio.manage');
+});
+Route::middleware(['auth'])->group(function() {
+    Route::get('/portfolio/add', AddAssetPage::class)->name('portfolio.add');
 });
 
 
