@@ -27,13 +27,33 @@
                     <label class="block text-sm font-medium text-gray-700">
                         Asset Type
                     </label>
-                    <input type="text" wire:model="asset_type"
-                           class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                           placeholder="e.g. Stock, Bond, ETF">
+                    <select wire:model="asset_type"
+                            class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                        <option value="">Select Asset Type</option>
+                        <option value="Stock">Stock</option>
+                        <option value="Bond">Bond</option>
+                        <option value="ETF">ETF</option>
+                        <option value="Real Estate">Real Estate</option>
+                    </select>
                     @error('asset_type')
                     <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+
+
+                <!-- Asset -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">
+                        Asset Name
+                    </label>
+                    <input wire:model="asset_name" step="any"
+                           class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                           placeholder="e.g. Apple, Amazon">
+                    @error('asset_name')
+                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
 
                 <!-- Investment Amount Field -->
                 <div>
@@ -96,19 +116,6 @@
                            class="mt-1 block w-full border border-gray-300 rounded-md p-2"
                            placeholder="Between 0-10?">
                     @error('risk_score')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Return on Investment -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">
-                        ROI % (Optional)
-                    </label>
-                    <input type="number" wire:model="return_on_investment" step="any"
-                           class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                           placeholder="e.g. 5.5">
-                    @error('return_on_investment')
                     <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>

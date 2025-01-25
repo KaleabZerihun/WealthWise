@@ -30,12 +30,48 @@
                 Total Portfolio Value
             </h3>
             <div class="mt-2 text-3xl font-bold text-indigo-600">
-                <!-- to add comma and to do 2 decimal place -->
                 ${{ number_format($totalValue, 2) }}
             </div>
             <p class="text-sm text-gray-500 mt-2">
                 Sum of all your current holdings' values.
             </p>
+
+            <!-- Per-Asset-Type Totals -->
+            <div class="mt-4">
+                <h4 class="text-md font-semibold text-gray-700 mb-2">
+                    By Asset Type
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- Real Estate -->
+                    <div class="bg-gray-50 p-3 rounded shadow">
+                        <p class="text-sm font-medium text-gray-500">Real Estate</p>
+                        <p class="text-lg font-bold text-gray-800">
+                            ${{ number_format($assetTypeTotals['Real Estate'], 2) }}
+                        </p>
+                    </div>
+                    <!-- Stock -->
+                    <div class="bg-gray-50 p-3 rounded shadow">
+                        <p class="text-sm font-medium text-gray-500">Stock</p>
+                        <p class="text-lg font-bold text-gray-800">
+                            ${{ number_format($assetTypeTotals['Stock'], 2) }}
+                        </p>
+                    </div>
+                    <!-- ETF -->
+                    <div class="bg-gray-50 p-3 rounded shadow">
+                        <p class="text-sm font-medium text-gray-500">ETF</p>
+                        <p class="text-lg font-bold text-gray-800">
+                            ${{ number_format($assetTypeTotals['ETF'], 2) }}
+                        </p>
+                    </div>
+                    <!-- Bond -->
+                    <div class="bg-gray-50 p-3 rounded shadow">
+                        <p class="text-sm font-medium text-gray-500">Bond</p>
+                        <p class="text-lg font-bold text-gray-800">
+                            ${{ number_format($assetTypeTotals['Bond'], 2) }}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Portfolio Items Table -->
@@ -50,6 +86,9 @@
                         <tr>
                             <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Asset Type
+                            </th>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Asset Name
                             </th>
                             <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Quantity
@@ -67,6 +106,9 @@
                             <tr>
                                 <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                                     {{ $asset->asset_type }}
+                                </td>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    {{ $asset->asset_name }}
                                 </td>
                                 <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
                                     {{ $asset->quantity }}

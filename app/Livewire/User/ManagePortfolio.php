@@ -12,10 +12,11 @@ class ManagePortfolio extends Component
 
     // Properties for editing
     public $editingAssetId = null;
-    public $editingAssetType;
+    public $editingAssetName;
     public $editingQuantity;
     public $editingValue;
     public $editingRoi;
+    public $editingAssetType;
 
     public $showEditModal = false;
 
@@ -39,6 +40,7 @@ class ManagePortfolio extends Component
         $asset = Portfolio::findOrFail($id);
         $this->editingAssetId = $id;
         $this->editingAssetType = $asset->asset_type;
+        $this->editingAssetName = $asset->asset_name;
         $this->editingQuantity = $asset->quantity;
         $this->editingValue = $asset->current_value;
         $this->editingRoi = $asset->return_on_investment;
@@ -49,16 +51,17 @@ class ManagePortfolio extends Component
     {
         $this->validate([
             'editingAssetType' => 'required|string|max:255',
+            'editingAssetName' => 'required|string|max:255',
             'editingQuantity' => 'required|numeric|min:0',
             'editingValue' => 'required|numeric|min:0',
-            'editingRoi' => 'required|numeric|min:0|max:100',
         ]);
 
         $asset = Portfolio::findOrFail($this->editingAssetId);
         $asset->asset_type = $this->editingAssetType;
+        $asset->asset_name = $this->editingAssetName;
         $asset->quantity = $this->editingQuantity;
         $asset->current_value = $this->editingValue;
-        $asset->return_on_investment = $this->editingRoi;
+        $asset->return_on_investment = (($this->editingValue - $asset->investment_amount) / $asset->investment_amount)*100;
         $asset->save();
 
         $this->showEditModal = false; // Close the modal

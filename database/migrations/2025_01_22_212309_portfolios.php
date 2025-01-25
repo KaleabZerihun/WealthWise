@@ -17,6 +17,7 @@ return new class extends Migration
                 ->constrained('users')
                 ->onDelete('cascade');
             $table->string('asset_type');       // e.g. stock, bond, ETF
+            $table->string('asset_name');
             $table->decimal('investment_amount', 15, 2)->default(0);
             $table->decimal('quantity', 15, 4)->default(0);
             $table->date('purchase_date')->nullable();

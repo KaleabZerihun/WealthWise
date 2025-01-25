@@ -1,17 +1,19 @@
+<x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        {{ __('Manage Portfolio') }}
+    </h2>
+</x-slot>
 <div class="py-6 bg-gray-100 min-h-screen">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="mb-6 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-gray-800">
-                Manage Portfolio
-            </h1>
+        <div class="mb-6 flex justify-end items-center">
             <a href="{{ route('portfolio.add') }}"
                class="inline-block bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">
                 Add New Asset
             </a>
         </div>
 
-        @if (session('message'))
+    @if (session('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('message') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -23,8 +25,9 @@
                 <thead>
                 <tr class="bg-gray-50">
                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Asset Type</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Asset Name</th>
                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Quantity</th>
-                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Value</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Current Value</th>
                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">ROI (%)</th>
                     <th class="px-4 py-2"></th>
                 </tr>
@@ -33,6 +36,7 @@
                 @forelse ($portfolioItems as $item)
                     <tr class="border-b">
                         <td class="px-4 py-2 text-sm text-gray-600">{{ $item->asset_type }}</td>
+                        <td class="px-4 py-2 text-sm text-gray-600">{{ $item->asset_name }}</td>
                         <td class="px-4 py-2 text-sm text-gray-600">{{ $item->quantity }}</td>
                         <td class="px-4 py-2 text-sm text-gray-600">${{ number_format($item->current_value, 2) }}</td>
                         <td class="px-4 py-2 text-sm text-gray-600">{{ $item->return_on_investment }}%</td>
@@ -62,10 +66,25 @@
                 <div class="bg-white rounded-lg p-6 w-1/3">
                     <h2 class="text-xl font-bold mb-4">Edit Asset</h2>
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Asset Type</label>
-                        <input type="text" wire:model.defer="editingAssetType" class="form-control w-full">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">
+                            Asset Type
+                        </label>
+                        <select wire:model="editingAssetType"
+                                class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                            <option value="">Select Asset Type</option>
+                            <option value="Stock">Stock</option>
+                            <option value="Bond">Bond</option>
+                            <option value="ETF">ETF</option>
+                            <option value="Real Estate">Real Estate</option>
+                        </select>
                         @error('editingAssetType') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Asset Name</label>
+                        <input type="text" wire:model.defer="editingAssetName" class="form-control w-full">
+                        @error('editingAssetName') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
 
@@ -76,15 +95,9 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Value</label>
+                        <label class="block text-sm font-medium text-gray-700">Current Value</label>
                         <input type="number" wire:model.defer="editingValue" class="form-control w-full">
                         @error('editingValue') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">ROI (%)</label>
-                        <input type="number" wire:model.defer="editingRoi" class="form-control w-full">
-                        @error('editingRoi') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="flex justify-end space-x-4">

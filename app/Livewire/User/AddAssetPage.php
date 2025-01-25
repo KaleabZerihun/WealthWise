@@ -14,6 +14,7 @@ class AddAssetPage extends Component
     public $current_value = '';
     public $risk_score = '';
     public $return_on_investment = '';
+    public $asset_name = '';
     public $investment_amount = '';
 
     public function mount()
@@ -25,9 +26,11 @@ class AddAssetPage extends Component
 
     public function store()
     {
+        $this->return_on_investment = (($this->current_value - $this->investment_amount) / $this->investment_amount)*100;
         // Validate the form
         $this->validate([
             'asset_type' => 'required|string',
+            'asset_name' => 'required|string',
             'investment_amount' => 'required|numeric',
             'quantity' => 'required|numeric',
             'purchase_date' => 'nullable|date',
@@ -46,6 +49,7 @@ class AddAssetPage extends Component
         Portfolio::create([
             'user_id' => $client->id,
             'asset_type' => $this->asset_type,
+            'asset_name' => $this->asset_name,
             'investment_amount' => $this->investment_amount,
             'quantity' => $this->quantity,
             'purchase_date' => $this->purchase_date,
@@ -64,6 +68,7 @@ class AddAssetPage extends Component
     {
         $this->asset_type = '';
         $this->asset_id = '';
+        $this->asset_name = '';
         $this->investment_amount = '';
         $this->quantity = '';
         $this->purchase_date = '';
