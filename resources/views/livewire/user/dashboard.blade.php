@@ -105,8 +105,24 @@
                                 Target: ${{ $goal->target_amount }} <br>
                                 Current: ${{ $goal->current_amount }}
                             </p>
-                            <span class="inline-block mt-1 text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
-                                    Status: {{ ucfirst($goal->goal_status) }}
+                                @php
+                                    $displayStatus = ucwords(str_replace('_', ' ', $goal->goal_status));
+                                    switch($goal->goal_status) {
+                                        case 'in_progress':
+                                            $colorClass = 'bg-yellow-100 text-yellow-800';
+                                            break;
+                                        case 'completed':
+                                            $colorClass = 'bg-green-100 text-green-800';
+                                            break;
+                                        case 'on_hold':
+                                            $colorClass = 'bg-red-100 text-red-800';
+                                            break;
+                                        default:
+                                            $colorClass = 'bg-gray-100 text-gray-800';
+                                    }
+                                @endphp
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $colorClass }}">
+                                    {{ $displayStatus }}
                                 </span>
                         </div>
                     @endforeach
@@ -114,7 +130,7 @@
             @else
                 <p class="text-gray-500">You haven’t set any financial goals yet.</p>
             @endif
-            <a href="#" class="inline-block mt-3 text-indigo-600 text-sm hover:underline">
+            <a href="{{ route('goals.manage') }}" class="inline-block mt-3 text-indigo-600 text-sm hover:underline">
                 Manage Goals
             </a>
         </div>

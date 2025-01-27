@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\User\AddAssetPage;
+use App\Livewire\User\AddGoalPage;
+use App\Livewire\User\ManageGoals;
 use App\Livewire\User\ManagePortfolio;
 use App\Livewire\User\PortfolioPage;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +50,12 @@ Route::middleware(['auth'])->group(function() {
 });
 Route::middleware(['auth'])->group(function() {
     Route::get('/portfolio/add', AddAssetPage::class)->name('portfolio.add');
+});
+Route::middleware(['auth'])->group(function() {
+    Route::get('/goals', ManageGoals::class)->name('goals.manage');
+
+    // The new separate add page
+    Route::get('/goals/add', AddGoalPage::class)->name('goals.add');
 });
 
 
