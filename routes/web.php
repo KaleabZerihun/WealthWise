@@ -42,6 +42,9 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/user-appointments', \App\Livewire\User\Appointments::class)->name('user.appointments');
 });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user-appointments-add', \App\Livewire\User\AddAppointment::class)->name('user.appointments.add');
+});
 Route::middleware(['auth'])->group(function() {
     Route::get('/portfolio', PortfolioPage::class)->name('portfolio');
 });

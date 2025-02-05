@@ -54,7 +54,7 @@
                 @else
                     <p class="text-gray-500">No upcoming appointments.</p>
                 @endif
-                <a href="#" class="inline-block mt-3 text-indigo-600 text-sm hover:underline">
+                <a href="{{route('user.appointments')}}" class="inline-block mt-3 text-indigo-600 text-sm hover:underline">
                     View All Appointments
                 </a>
             </div>
