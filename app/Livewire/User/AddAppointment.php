@@ -21,7 +21,6 @@ class AddAppointment extends Component
     }
 
 
-    // Find advisors NOT booked at $scheduledAt
     public function fetchAdvisors()
     {
 
@@ -39,10 +38,8 @@ class AddAppointment extends Component
             return;
         }
 
-        // find advisors who are booked at $requestedTime
         $bookedIds = Appointment::where('scheduled_at', $requestedTime)->pluck('advisor_id');
 
-        // exclude them from the list
         $this->advisors = Advisor::whereNotIn('id', $bookedIds)
             ->orderBy('first_name','asc')
             ->orderBy('last_name','asc')
@@ -68,7 +65,6 @@ class AddAppointment extends Component
             return;
         }
 
-        // final concurrency check
         $alreadyBooked = Appointment::where('advisor_id', $this->selectedAdvisor)
             ->where('scheduled_at', $requestedTime)
             ->exists();
@@ -77,7 +73,6 @@ class AddAppointment extends Component
             return;
         }
 
-        // create new record
         Appointment::create([
             'user_id'      => $user->id,
             'advisor_id'   => $this->selectedAdvisor,

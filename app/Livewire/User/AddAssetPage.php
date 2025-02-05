@@ -19,9 +19,7 @@ class AddAssetPage extends Component
 
     public function mount()
     {
-        // Optionally, you can check if user is client or set up some guard logic
         $client = Auth::user();
-        // If user is not a 'client', maybe redirect or handle error
     }
 
     public function store()
@@ -41,7 +39,6 @@ class AddAssetPage extends Component
 
         $client = Auth::user();
         if (!$client) {
-            // handle no client found (redirect, error, etc.)
             return;
         }
 

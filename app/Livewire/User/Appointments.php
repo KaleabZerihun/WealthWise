@@ -19,20 +19,17 @@ class Appointments extends Component
     {
         $user = Auth::user();
         if ($user) {
-            // Show appointments for this user, ordered by date/time
             $this->appointments = Appointment::where('user_id', $user->id)
                 ->orderBy('scheduled_at','asc')
                 ->get();
         }
     }
 
-    // Cancel an appointment (or delete from DB)
     public function cancelAppointment($id)
     {
         $appt = Appointment::findOrFail($id);
-        // Optionally verify $appt->user_id == Auth::id()
 
-        $appt->delete(); // This frees the timeslot again
+        $appt->delete();
         $this->fetchAppointments();
 
         session()->flash('message', 'Appointment canceled successfully.');

@@ -26,7 +26,6 @@ class AdminManageNews extends Component
     // Retrieve items
     public function fetchNews()
     {
-        // No search needed -> just order by published_at desc
         $this->newsItems = News::orderBy('published_at','desc')->get();
     }
 
@@ -40,9 +39,7 @@ class AdminManageNews extends Component
         $this->editContent  = $item->content;
         $this->editCategory = $item->category;
 
-        // Fixing the "format()" on string issue:
         if ($item->published_at) {
-            // parse it to a Carbon instance first
             $parsed = Carbon::parse($item->published_at);
             $this->editPublishedAt = $parsed->format('Y-m-d\TH:i');
         } else {

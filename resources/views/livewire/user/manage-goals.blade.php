@@ -7,7 +7,7 @@
 <div class="py-6 bg-gray-100 min-h-screen">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- Link to "Add New Goal" page (optional) -->
+        <!-- Link to "Add New Goal" page-->
         <div class="mb-6 flex justify-end items-center">
             <a href="{{ route('goals.add') }}"
                class="inline-block bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">

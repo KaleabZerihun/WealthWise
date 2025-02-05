@@ -11,7 +11,6 @@ class PortfolioPage extends Component
     public $portfolioItems = [];
     public $totalValue = 0;
 
-    // We'll store totals for these four types in an array
     public $assetTypeTotals = [
         'Real Estate' => 0,
         'Stock'       => 0,
@@ -23,13 +22,10 @@ class PortfolioPage extends Component
     {
         $client = Auth::user();
         if ($client) {
-            // 1) Fetch the user's portfolio items
             $this->portfolioItems = Portfolio::where('user_id', $client->id)->get();
 
-            // 2) Calculate the overall total
             $this->totalValue = 0;
 
-            // 3) Build per-type sums
             foreach ($this->portfolioItems as $asset) {
                 $value = $asset->current_value; // Or compute if needed
                 $this->totalValue += $value;

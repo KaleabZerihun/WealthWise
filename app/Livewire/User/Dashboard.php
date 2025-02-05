@@ -16,19 +16,15 @@ class Dashboard extends Component
     public $goals = [];
     public $news = [];
 
-    // This method runs once the component is mounted/initialized
     public function mount()
     {
-        // Usually, the logged-in user is a "Client"
         $client = Auth::guard('web')->user();
-        // or "Auth::guard('client')->user();" if you have a separate guard
 
         if ($client) {
-            // Sum up all 'current_value' for the user's portfolio
             $this->portfolioValue = Portfolio::where('user_id', $client->id)
                 ->sum('current_value');
 
-            // Fetch upcoming appointments (status 'pending')
+            // Fetch upcoming appointments
             $this->upcomingAppointments = Appointment::where('user_id', $client->id)
                 ->where('status', 'pending')
                 ->orderBy('scheduled_at', 'asc')
@@ -39,7 +35,7 @@ class Dashboard extends Component
             $this->goals = FinancialGoal::where('user_id', $client->id)
                 ->get();
         }
-        // Fetch some recent news articles (e.g. last 3)
+        // Fetch some recent news articles
         $this->news = News::orderBy('published_at', 'desc')
             ->take(3)
             ->get();

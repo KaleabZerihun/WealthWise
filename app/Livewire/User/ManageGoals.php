@@ -8,20 +8,16 @@ use App\Models\FinancialGoal;
 
 class ManageGoals extends Component
 {
-    // Collection of all goals for the user
     public $goals = [];
 
-    // Individual summary properties
     public $inProgress = 0;
     public $completed  = 0;
     public $onHold     = 0;
     public $total      = 0;
 
-    // Edit modal properties
     public $showEditModal = false;
     public $editGoalId;
 
-    // Fields for the editing form
     public $editGoalType;
     public $editTarget;
     public $editCurrent;
@@ -34,7 +30,6 @@ class ManageGoals extends Component
         $this->fetchGoals();
     }
 
-    // Load user's goals from DB, compute individual sums
     public function fetchGoals()
     {
         $user = Auth::user();
@@ -47,13 +42,11 @@ class ManageGoals extends Component
             ->orderBy('created_at','desc')
             ->get();
 
-        // Reset counters
         $this->inProgress = 0;
         $this->completed  = 0;
         $this->onHold     = 0;
         $this->total      = 0;
 
-        // Tally each status
         foreach ($this->goals as $goal) {
             $this->total++;
             switch ($goal->goal_status) {
@@ -111,13 +104,11 @@ class ManageGoals extends Component
         session()->flash('message', 'Goal updated successfully!');
     }
 
-    // Close the edit modal
     public function closeEditModal()
     {
         $this->showEditModal = false;
     }
 
-    // Delete a goal
     public function deleteGoal($id)
     {
         $goal = FinancialGoal::findOrFail($id);
