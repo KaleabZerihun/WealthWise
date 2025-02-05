@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\AdminManageNews;
+use App\Livewire\Advisor\ClientPortfolioView;
 use App\Livewire\User\AddAssetPage;
 use App\Livewire\User\AddGoalPage;
 use App\Livewire\User\ManageGoals;
@@ -82,12 +83,16 @@ Route::middleware(['auth:admin'])->group(function() {
 });
 
 
-//Advisor Tools and Appointments
+//Advisor pages
 Route::middleware(['auth:advisor'])->group(function () {
     Route::get('/advisor-tool', \App\Livewire\Advisor\Tools::class)->name('advisor.tools');
 });
 Route::middleware(['auth:advisor'])->group(function () {
     Route::get('/advisor-appointments', \App\Livewire\Advisor\Appointments::class)->name('advisor.appointments');
+});
+Route::middleware(['auth:advisor'])->group(function() {
+    Route::get('/advisor/client-portfolio/{clientId}', ClientPortfolioView::class)
+        ->name('advisor.clientPortfolio');
 });
 
 

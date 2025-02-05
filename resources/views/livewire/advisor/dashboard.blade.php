@@ -103,7 +103,7 @@
                                         ${{ number_format($client['total_value'], 2) }}
                                     </td>
                                     <td class="px-4 py-2 text-right text-sm">
-                                        <a href="#"
+                                        <a href="{{ route('advisor.clientPortfolio', ['clientId' => $client['user_id']]) }}"
                                            class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded">
                                             Details
                                         </a>
