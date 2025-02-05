@@ -1,9 +1,11 @@
 <?php
 
+use App\Livewire\Admin\AdminManageNews;
 use App\Livewire\User\AddAssetPage;
 use App\Livewire\User\AddGoalPage;
 use App\Livewire\User\ManageGoals;
 use App\Livewire\User\ManagePortfolio;
+use App\Livewire\User\NewsPage;
 use App\Livewire\User\PortfolioPage;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
@@ -60,14 +62,23 @@ Route::middleware(['auth'])->group(function() {
     // The new separate add page
     Route::get('/goals/add', AddGoalPage::class)->name('goals.add');
 });
+Route::middleware(['auth'])->group(function() {
+    Route::get('/news', NewsPage::class)->name('user.news');
+});
 
 
-// Admin reports and user managements
+// Admin pages
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin-user-management', \App\Livewire\Admin\UserManagement::class)->name('admin.userManagement');
 });
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/reports', \App\Livewire\Admin\Reports::class)->name('admin.reports');
+});
+Route::middleware(['auth:admin'])->group(function() {
+    Route::get('/admin/news', AdminManageNews::class)->name('admin.news');
+});
+Route::middleware(['auth:admin'])->group(function() {
+    Route::get('/admin/news/create', App\Livewire\Admin\AddNews::class)->name('admin.news.add');
 });
 
 

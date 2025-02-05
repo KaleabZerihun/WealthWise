@@ -83,7 +83,7 @@
                 @else
                     <p class="text-gray-500">No recent news at the moment.</p>
                 @endif
-                <a href="#" class="inline-block mt-3 text-indigo-600 text-sm hover:underline">
+                <a href="{{ route('user.news') }}" class="inline-block mt-3 text-indigo-600 text-sm hover:underline">
                     View All News
                 </a>
             </div>

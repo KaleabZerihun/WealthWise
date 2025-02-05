@@ -41,6 +41,9 @@ new class extends Component
                             <x-nav-link :href="route('admin.reports')" :active="request()->routeIs('admin.reports')" wire:navigate>
                                 {{ __('Reports') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('admin.news')" :active="request()->routeIs('admin.news')" wire:navigate>
+                                {{ __('Manage News') }}
+                            </x-nav-link>
                         </div>
                     @elseif(Auth::guard('advisor')->check())
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -66,6 +69,9 @@ new class extends Component
                             </x-nav-link>
                             <x-nav-link :href="route('user.tools')" :active="request()->routeIs('user.tools')" wire:navigate>
                                 {{ __('Tools') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('user.news')" :active="request()->routeIs('user.news')" wire:navigate>
+                                {{ __('News') }}
                             </x-nav-link>
                         </div>
                     @endif
