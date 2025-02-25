@@ -20,18 +20,28 @@
 <body class="antialiased font-sans bg-gray-50 text-gray-800 dark:bg-black dark:text-gray-200">
 <div class="min-h-screen flex flex-col">
     <!-- Header / Navigation -->
-    <header class="w-full py-4 bg-white dark:bg-gray-900 shadow-sm">
+    <header class="w-full py-4 bg-white dark:bg-gray-900 shadow-sm relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
             <!-- Logo and Brand Name -->
             <div class="flex items-center space-x-2">
-                <!-- Example logo in subdued gray -->
                 <a href="{{ route('dashboard') }}" wire:navigate>
                     <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                 </a>
                 <span class="text-xl font-bold text-gray-700 dark:text-gray-200">WealthWise</span>
             </div>
+
+            <!-- Register & Login Links -->
+            <nav class="absolute right-4 top-4 flex space-x-4">
+                <a href="{{ route('login') }}" class="text-gray-700 dark:text-gray-300 hover:underline">
+                    Login
+                </a>
+                <a href="{{ route('register') }}" class="text-gray-700 dark:text-gray-300 hover:underline">
+                    Register
+                </a>
+            </nav>
         </div>
     </header>
+
 
     <!-- Hero / Introduction Section -->
     <main class="flex-1 w-full">
