@@ -60,33 +60,37 @@
             </div>
 
             <!-- News Highlights Card -->
+            <!-- Market News Highlights Card (Fixed Count Issue) -->
             <div class="bg-white shadow-md rounded-lg p-4">
                 <h3 class="text-lg font-semibold text-gray-700 mb-2">
-                    News Highlights
+                    Market News Highlights
                 </h3>
-                @if ($news->count() > 0)
-                    <ul class="space-y-2">
-                        @foreach ($news as $item)
-                            <li class="border-b pb-1">
-                                <p class="font-medium text-gray-800">
-                                    {{ $item->title }}
-                                </p>
-                                <p class="text-sm text-gray-500">
-                                    Published: {{ \Carbon\Carbon::parse($item->published_at)->format('M d, Y') }}
-                                </p>
-                                <p class="text-sm text-gray-600 mt-1">
-                                    {{ Str::limit($item->content, 80) }}
-                                </p>
-                            </li>
-                        @endforeach
-                    </ul>
+                @if (count($news) > 0) <!-- FIXED: Using count($news) instead of $news->count() -->
+                @foreach (array_slice($news, 0, 2) as $item) <!-- Ensure we only show 3 items -->
+                <div class="border-b pb-2 mb-2">
+                    <h4 class="text-md font-semibold text-gray-800">
+                        {{ $item['headline'] }}
+                    </h4>
+                    <p class="text-sm text-gray-500">
+                        {{ \Carbon\Carbon::parse($item['datetime'])->format('M d, Y') }}
+                    </p>
+                    <p class="text-sm text-gray-700 mt-1">
+                        {{ Str::limit($item['summary'], 80) }}
+                    </p>
+                    <a href="{{ $item['url'] }}" target="_blank"
+                       class="text-blue-600 text-sm hover:underline font-semibold">
+                        Read More →
+                    </a>
+                </div>
+                @endforeach
                 @else
-                    <p class="text-gray-500">No recent news at the moment.</p>
+                    <p class="text-gray-500">No recent market news.</p>
                 @endif
                 <a href="{{ route('user.news') }}" class="inline-block mt-3 text-indigo-600 text-sm hover:underline">
                     View All News
                 </a>
             </div>
+
         </div>
 
         <!-- Financial Goals Section -->
