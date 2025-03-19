@@ -22,7 +22,7 @@ class Dashboard extends Component
 
         if ($client) {
             $this->portfolioValue = Portfolio::where('user_id', $client->id)
-                ->sum('current_value');
+                ->sum('investment_amount');
 
             // Fetch upcoming appointments
             $this->upcomingAppointments = Appointment::where('user_id', $client->id)

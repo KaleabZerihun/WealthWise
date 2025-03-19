@@ -28,7 +28,7 @@ class Dashboard extends Component
         }
 
 
-        $result = Portfolio::select('user_id', DB::raw('SUM(current_value) as total_value'))
+        $result = Portfolio::select('user_id', DB::raw('SUM(investment_amount) as total_value'))
             ->groupBy('user_id')
             ->get();
 

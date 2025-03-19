@@ -4,8 +4,10 @@ use App\Livewire\Admin\AdminManageNews;
 use App\Livewire\Advisor\ClientPortfolioView;
 use App\Livewire\User\AddAssetPage;
 use App\Livewire\User\AddGoalPage;
+use App\Livewire\User\BuyAssetPage;
 use App\Livewire\User\ManageGoals;
 use App\Livewire\User\ManagePortfolio;
+use App\Livewire\User\MarketDataPage;
 use App\Livewire\User\NewsPage;
 use App\Livewire\User\PortfolioPage;
 use Illuminate\Support\Facades\Route;
@@ -52,12 +54,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/portfolio', PortfolioPage::class)->name('portfolio');
 });
 Route::middleware(['auth'])->group(function() {
-    Route::get('/manage-portfolio', ManagePortfolio::class)->name('portfolio.manage');
-});
-Route::middleware(['auth'])->group(function() {
-    Route::get('/portfolio/add', AddAssetPage::class)->name('portfolio.add');
-});
-Route::middleware(['auth'])->group(function() {
     Route::get('/goals', ManageGoals::class)->name('goals.manage');
 
     // The new separate add page
@@ -65,6 +61,10 @@ Route::middleware(['auth'])->group(function() {
 });
 Route::middleware(['auth'])->group(function() {
     Route::get('/news', NewsPage::class)->name('user.news');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/market', MarketDataPage::class)->name('market');
 });
 
 

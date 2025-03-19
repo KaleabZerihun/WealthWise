@@ -22,7 +22,6 @@ return new class extends Migration
             $table->decimal('quantity', 15, 4)->default(0);
             $table->date('purchase_date')->nullable();
             $table->decimal('current_value', 15, 2)->default(0);
-            $table->decimal('risk_score', 5, 2)->default(0);
             $table->decimal('return_on_investment', 6, 2)->default(0);
             $table->timestamps();
         });

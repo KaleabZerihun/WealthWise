@@ -2,9 +2,13 @@
 
 namespace App\Livewire\User;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Portfolio;
+use GuzzleHttp\Client;
+use GuzzleHttp\Promise;
 
 class PortfolioPage extends Component
 {
@@ -12,30 +16,104 @@ class PortfolioPage extends Component
     public $totalValue = 0;
 
     public $assetTypeTotals = [
-        'Real Estate' => 0,
-        'Stock'       => 0,
+        'RealEstate' => 0,
+        'Stocks'       => 0,
         'ETF'         => 0,
-        'Bond'        => 0
+        'Bonds'        => 0
     ];
+    public $showSellModal = false;
+    public $sellQuantity = 1;
+    public $maxSellQuantity;
+    public $assetIdToSell;
+    private $apiKey = 'cvdk961r01qm9khlfmu0cvdk961r01qm9khlfmug';
 
     public function mount()
     {
         $client = Auth::user();
         if ($client) {
+
             $this->portfolioItems = Portfolio::where('user_id', $client->id)->get();
+            $this->calculateTotals();
+            //fetch current price in parallel
+            $this->fetchCurrentPrices();
+        }
+    }
 
-            $this->totalValue = 0;
+    private function fetchCurrentPrices()
+    {
+        foreach ($this->portfolioItems as $asset) {
+            $apiResponse = Http::get('https://finnhub.io/api/v1/quote', [
+                'symbol' => $asset->asset_name,
+                'token'  => $this->apiKey,
+            ]);
 
-            foreach ($this->portfolioItems as $asset) {
-                $value = $asset->current_value; // Or compute if needed
-                $this->totalValue += $value;
+            if ($apiResponse->successful()) {
+                $data = $apiResponse->json();
+                $currentPrice = $data['c'] ?? 0;
+                $boughtPrice = $asset->investment_amount / max($asset->quantity, 1);
 
-                // If asset type matches one of the four known types, add to its sum
-                if (isset($this->assetTypeTotals[$asset->asset_type])) {
-                    $this->assetTypeTotals[$asset->asset_type] += $value;
-                }
+                // Calculate price change and percentage change
+                $priceChange = $currentPrice - $boughtPrice;
+                $percentChange = ($boughtPrice > 0) ? ($priceChange / $boughtPrice) * 100 : 0;
+
+                // Add calculated values to asset object
+                $asset->current_price = $currentPrice;
+                $asset->price_change = $priceChange;
+                $asset->percent_change = $percentChange;
+                $asset->bought_price = $boughtPrice;
             }
         }
+    }
+    private function calculateTotals()
+    {
+        foreach ($this->portfolioItems as $asset) {
+            $value = $asset->investment_amount;
+            $this->totalValue += $value;
+
+            if (isset($this->assetTypeTotals[$asset->asset_type])) {
+                $this->assetTypeTotals[$asset->asset_type] += $value;
+            }
+        }
+    }
+
+    public function openSellModal($assetId, $maxQuantity)
+    {
+        $this->assetIdToSell = $assetId;
+        $this->maxSellQuantity = $maxQuantity;
+        $this->sellQuantity = 1;
+        $this->showSellModal = true;
+    }
+
+    public function closeSellModal()
+    {
+        $this->showSellModal = false;
+        $this->sellQuantity = 1;
+    }
+
+    public function confirmSell()
+    {
+        if (!$this->assetIdToSell || $this->sellQuantity < 1) {
+            session()->flash('error', 'Invalid quantity');
+            return;
+        }
+
+        $asset = Portfolio::find($this->assetIdToSell);
+
+        if (!$asset || $this->sellQuantity > $asset->quantity) {
+            session()->flash('error', 'Invalid sell amount');
+            return;
+        }
+
+        if ($this->sellQuantity == $asset->quantity) {
+            $asset->delete();
+        } else {
+            $asset->quantity -= $this->sellQuantity;
+            $asset->investment_amount = $asset->current_price * $asset->quantity;
+            $asset->save();
+        }
+
+        session()->flash('message', 'Asset sold successfully!');
+        return redirect()->route('portfolio');
     }
 
     public function render()
