@@ -22,7 +22,7 @@ class PortfolioPage extends Component
         'Bonds'        => 0
     ];
     public $showSellModal = false;
-    public $sellQuantity = 1;
+    public $sellQuantity;
     public $maxSellQuantity;
     public $assetIdToSell;
     private $apiKey = 'cvdk961r01qm9khlfmu0cvdk961r01qm9khlfmug';
@@ -107,10 +107,16 @@ class PortfolioPage extends Component
         if ($this->sellQuantity == $asset->quantity) {
             $asset->delete();
         } else {
-            $asset->quantity -= $this->sellQuantity;
-            $asset->investment_amount = $asset->current_price * $asset->quantity;
+            // Adjust quantity and investment amount proportionally
+            $newQuantity = $asset->quantity - $this->sellQuantity;
+            $newInvestmentAmount = ($asset->investment_amount / $asset->quantity) * $newQuantity;
+
+            $asset->quantity = $newQuantity;
+            $asset->investment_amount = $newInvestmentAmount;
             $asset->save();
         }
+        // Recalculate portfolio totals
+        $this->mount();
 
         session()->flash('message', 'Asset sold successfully!');
         return redirect()->route('portfolio');
