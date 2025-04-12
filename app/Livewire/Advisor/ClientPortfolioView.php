@@ -13,10 +13,10 @@ class ClientPortfolioView extends Component
     public $portfolioItems = [];
     public $totalValue = 0;
     public $assetTypeTotals = [
-        'Real Estate' => 0,
-        'Stock'       => 0,
+        'RealEstate' => 0,
+        'Stocks'       => 0,
         'ETF'         => 0,
-        'Bond'        => 0
+        'Bonds'        => 0
     ];
 
     public function mount($clientId)
@@ -35,16 +35,15 @@ class ClientPortfolioView extends Component
             ->get();
 
         foreach ($this->portfolioItems as $asset) {
-            $value = $asset->current_value; // Or compute if needed
+            $value = $asset->investment_amount;
             $this->totalValue += $value;
 
-            // If asset type matches one of the four known types, add to its sum
             if (isset($this->assetTypeTotals[$asset->asset_type])) {
                 $this->assetTypeTotals[$asset->asset_type] += $value;
             }
         }
 
-        $this->totalValue = $this->portfolioItems->sum('current_value');
+        //$this->totalValue = $this->portfolioItems->sum('current_value');
     }
 
     public function render()

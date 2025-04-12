@@ -85,7 +85,6 @@ class AddAppointment extends Component
         return redirect()->route('user.appointments');
     }
 
-
     public function render()
     {
         return view('livewire.user.add-appointment')->layout('layouts.app');

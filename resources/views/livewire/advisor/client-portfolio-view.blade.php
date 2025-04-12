@@ -28,14 +28,14 @@
                     <div class="bg-gray-50 p-3 rounded shadow">
                         <p class="text-sm font-medium text-gray-500">Real Estate</p>
                         <p class="text-lg font-bold text-gray-800">
-                            ${{ number_format($assetTypeTotals['Real Estate'], 2) }}
+                            ${{ number_format($assetTypeTotals['RealEstate'], 2) }}
                         </p>
                     </div>
                     <!-- Stock -->
                     <div class="bg-gray-50 p-3 rounded shadow">
                         <p class="text-sm font-medium text-gray-500">Stock</p>
                         <p class="text-lg font-bold text-gray-800">
-                            ${{ number_format($assetTypeTotals['Stock'], 2) }}
+                            ${{ number_format($assetTypeTotals['Stocks'], 2) }}
                         </p>
                     </div>
                     <!-- ETF -->
@@ -49,7 +49,7 @@
                     <div class="bg-gray-50 p-3 rounded shadow">
                         <p class="text-sm font-medium text-gray-500">Bond</p>
                         <p class="text-lg font-bold text-gray-800">
-                            ${{ number_format($assetTypeTotals['Bond'], 2) }}
+                            ${{ number_format($assetTypeTotals['Bonds'], 2) }}
                         </p>
                     </div>
                 </div>
@@ -65,20 +65,20 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Asset Type
                             </th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Asset Name
                             </th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Investment Amount
+                            </th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Bought Price
+                            </th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Quantity
-                            </th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                                Current Value
-                            </th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                                ROI (%)
                             </th>
                         </tr>
                         </thead>
@@ -92,13 +92,13 @@
                                     {{ $asset->asset_name }}
                                 </td>
                                 <td class="px-4 py-2 text-sm text-gray-700">
+                                    {{ number_format($asset->investment_amount, 2) }}
+                                </td>
+                                <td class="px-4 py-2 text-sm text-gray-700">
+                                    ${{ number_format($asset->bought_price, 2) }}
+                                </td>
+                                <td class="px-4 py-2 text-sm text-gray-700">
                                     {{ $asset->quantity }}
-                                </td>
-                                <td class="px-4 py-2 text-sm text-gray-700">
-                                    ${{ number_format($asset->current_value, 2) }}
-                                </td>
-                                <td class="px-4 py-2 text-sm text-gray-700">
-                                    {{ $asset->return_on_investment ?? 'N/A' }}%
                                 </td>
                             </tr>
                         @endforeach

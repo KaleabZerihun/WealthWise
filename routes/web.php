@@ -94,6 +94,9 @@ Route::middleware(['auth:advisor'])->group(function() {
     Route::get('/advisor/client-portfolio/{clientId}', ClientPortfolioView::class)
         ->name('advisor.clientPortfolio');
 });
+Route::middleware(['auth:advisor'])->group(function () {
+    Route::get('/advisor-appointments-add', \App\Livewire\Advisor\AddAppointment::class)->name('advisor.appointments.add');
+});
 
 
 
