@@ -67,7 +67,7 @@ new #[Layout('layouts.guest')] class extends Component {
                 'specialization' => ['required', 'string', 'max:255'],
                 'certification' => ['required', 'string', 'max:255'],
                 'years_of_experience' => ['required', 'string', 'max:255'],
-                'phone' => ['required', 'string', 'max:255'],
+                'phone' => ['required', 'regex:/^[0-9]{10}$/', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . Advisor::class],
                 'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             ]);
@@ -82,7 +82,7 @@ new #[Layout('layouts.guest')] class extends Component {
                 'street_address' => ['required', 'string', 'max:255'],
                 'gender' => ['required', 'string', 'max:255'],
                 'zip_code' => ['required', 'string', 'max:255'],
-                'phone' => ['required', 'string', 'max:255'],
+                'phone' => ['required', 'regex:/^[0-9]{10}$/', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
                 'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             ]);
@@ -240,10 +240,11 @@ new #[Layout('layouts.guest')] class extends Component {
 
             <!-- Email Address -->
             <div class="mt-4">
+                <x-input-error :messages="$errors->get('email')" class="mt-2"/>
                 <x-input-label for="email" :value="__('Email')"/>
                 <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required
                               autocomplete="username"/>
-                <x-input-error :messages="$errors->get('email')" class="mt-2"/>
+
             </div>
         @endif
 

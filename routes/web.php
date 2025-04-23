@@ -97,6 +97,9 @@ Route::middleware(['auth:advisor'])->group(function() {
 Route::middleware(['auth:advisor'])->group(function () {
     Route::get('/advisor-appointments-add', \App\Livewire\Advisor\AddAppointment::class)->name('advisor.appointments.add');
 });
+Route::middleware(['auth:advisor'])->group(function() {
+    Route::get('/advisor/news', \App\Livewire\Advisor\News::class)->name('advisor.news');
+});
 
 
 

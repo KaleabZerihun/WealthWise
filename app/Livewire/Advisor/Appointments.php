@@ -24,17 +24,19 @@ class Appointments extends Component
 
     public function mount()
     {
-        $advisor = Auth::guard('advisor')->user();
-        if ($advisor) {
-            $this->loadAppointments($advisor->id);
-        }
+        $this->loadAppointments();
+
     }
 
-    protected function loadAppointments($advisorId)
+    protected function loadAppointments()
     {
-        $this->appointments = Appointment::where('advisor_id', $advisorId)
-            ->orderBy('scheduled_at', 'asc')
-            ->get();
+        $advisor = Auth::guard('advisor')->user();
+        if($advisor){
+            $this->appointments = Appointment::where('advisor_id', $advisor->id)
+                ->orderBy('scheduled_at', 'asc')
+                ->get();
+        }
+
     }
 
     /**
@@ -42,11 +44,10 @@ class Appointments extends Component
      */
     public function cancelAppointment($id)
     {
-        $advisor = Auth::guard('advisor')->user();
         $appt = Appointment::findOrFail($id);
 
         $appt->delete();
-        $this->loadAppointments($advisor);
+        $this->loadAppointments();
 
         session()->flash('message', 'Appointment canceled successfully.');
     }

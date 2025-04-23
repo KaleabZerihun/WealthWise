@@ -56,6 +56,9 @@ new class extends Component
                             <x-nav-link :href="route('advisor.tools')" :active="request()->routeIs('advisor.tools')" wire:navigate>
                                 {{ __('Tools') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('advisor.news')" :active="request()->routeIs('advisor.news')" wire:navigate>
+                                {{ __('News') }}
+                            </x-nav-link>
                         </div>
                     @else
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

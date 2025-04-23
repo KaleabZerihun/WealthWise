@@ -6,6 +6,7 @@ use App\Models\News;
 use App\Models\Portfolio;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Appointment;
@@ -51,6 +52,29 @@ class Dashboard extends Component
         $this->latestNews = News::orderBy('published_at','desc')
             ->take(3)
             ->get();
+    }
+
+    public function fetchNews()
+    {
+        $apiKey = 'cvdk961r01qm9khlfmu0cvdk961r01qm9khlfmug';
+        $url = "https://finnhub.io/api/v1/news?category=general&token={$apiKey}";
+
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            $articles = $response->json();
+
+            // Filter out MarketWatch articles and those without images
+            $filteredNews = array_filter($articles, function ($article) {
+                return
+                    !str_contains(strtolower($article['source'] ?? ''), 'marketwatch') &&
+                    !empty($article['image']);
+            });
+
+            $this->news = array_values($filteredNews); // Reset array keys
+        } else {
+            $this->news = [];
+        }
     }
 
     public function render()
