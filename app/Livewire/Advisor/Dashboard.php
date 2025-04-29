@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Advisor;
 
+use App\Models\Event;
 use App\Models\News;
 use App\Models\Portfolio;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
@@ -18,6 +20,8 @@ class Dashboard extends Component
     public $grandTotalPortfolio = 0;
     public $advisorName = 'Advisor';
     public $upcomingAppointments = [];
+    public $news = [];
+    public $upcomingEvents = [];
     public $latestNews = [];
 
 
@@ -49,9 +53,18 @@ class Dashboard extends Component
             ->take(3)
             ->get();
 
-        $this->latestNews = News::orderBy('published_at','desc')
-            ->take(3)
+        $this->upcomingEvents = Event::where('start_time', '>=', Carbon::now())
+            ->orderBy('start_time', 'asc')
+            ->take(5)
             ->get();
+
+        // Fetch news highlights
+        $cacheKey = 'market_news';
+        if (Cache::has($cacheKey)) {
+            $this->news = array_slice(Cache::get($cacheKey), 0, 3);
+        } else {
+            $this->fetchNews();
+        }
     }
 
     public function fetchNews()

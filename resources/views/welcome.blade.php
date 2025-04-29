@@ -59,7 +59,7 @@
                         <!-- Example CTA Buttons -->
                         <a href="{{ route('login') }}"
                            class="inline-block bg-gray-800 hover:bg-gray-900 text-white font-medium px-5 py-3 rounded transition">
-                            Get Started
+                            Sign In
                         </a>
                         <a href="{{ route('register') }}"
                            class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium px-5 py-3 rounded transition">

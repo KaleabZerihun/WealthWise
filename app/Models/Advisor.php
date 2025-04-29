@@ -35,4 +35,10 @@ class Advisor extends Authenticatable
         ];
     }
 
+    // in App\Models\Advisor
+    public function appointments()
+    {
+        return $this->hasMany(\App\Models\Appointment::class);
+    }
+
 }

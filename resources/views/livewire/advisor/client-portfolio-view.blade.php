@@ -95,7 +95,7 @@
                                     {{ number_format($asset->investment_amount, 2) }}
                                 </td>
                                 <td class="px-4 py-2 text-sm text-gray-700">
-                                    ${{ number_format($asset->bought_price, 2) }}
+                                    ${{ number_format($asset->investment_amount / max($asset->quantity, 1), 2) }}
                                 </td>
                                 <td class="px-4 py-2 text-sm text-gray-700">
                                     {{ $asset->quantity }}

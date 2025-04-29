@@ -35,14 +35,16 @@ new class extends Component
                             <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
                                 {{ __('Admin Dashboard') }}
                             </x-nav-link>
-                            <x-nav-link :href="route('admin.userManagement')" :active="request()->routeIs('admin.userManagement')" wire:navigate>
+                            <x-nav-link  :href="route('admin.user-management')"
+                                         :active="request()->routeIs('admin.user-management')"
+                                         wire:navigate>
                                 {{ __('User Management') }}
                             </x-nav-link>
-                            <x-nav-link :href="route('admin.reports')" :active="request()->routeIs('admin.reports')" wire:navigate>
-                                {{ __('Reports') }}
+                            <x-nav-link :href="route('admin.manage-events')" :active="request()->routeIs('admin.manage-events')" wire:navigate>
+                                {{ __('Manage Events') }}
                             </x-nav-link>
                             <x-nav-link :href="route('admin.news')" :active="request()->routeIs('admin.news')" wire:navigate>
-                                {{ __('Manage News') }}
+                                {{ __('News') }}
                             </x-nav-link>
                         </div>
                     @elseif(Auth::guard('advisor')->check())
@@ -52,6 +54,9 @@ new class extends Component
                             </x-nav-link>
                             <x-nav-link :href="route('advisor.appointments')" :active="request()->routeIs('advisor.appointments')" wire:navigate>
                                 {{ __('Appointments') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('advisor.manage-events')" :active="request()->routeIs('advisor.manage-events')" wire:navigate>
+                                {{ __('Events') }}
                             </x-nav-link>
                             <x-nav-link :href="route('advisor.tools')" :active="request()->routeIs('advisor.tools')" wire:navigate>
                                 {{ __('Tools') }}
@@ -72,6 +77,9 @@ new class extends Component
                             </x-nav-link>
                             <x-nav-link :href="route('user.tools')" :active="request()->routeIs('user.tools')" wire:navigate>
                                 {{ __('Tools') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('user.events')" :active="request()->routeIs('user.events')" wire:navigate>
+                                {{ __('Events') }}
                             </x-nav-link>
                             <x-nav-link :href="route('user.news')" :active="request()->routeIs('user.news')" wire:navigate>
                                 {{ __('News') }}

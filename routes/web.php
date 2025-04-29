@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\AdminManageNews;
+use App\Livewire\Admin\UserManagement;
 use App\Livewire\Advisor\ClientPortfolioView;
 use App\Livewire\User\AddAssetPage;
 use App\Livewire\User\AddGoalPage;
@@ -66,12 +67,26 @@ Route::middleware(['auth'])->group(function() {
 Route::middleware(['auth'])->group(function () {
     Route::get('/market', MarketDataPage::class)->name('market');
 });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/events', \App\Livewire\User\EventsWorkshopsPage::class)
+        ->name('user.events');
+});
+
+
 
 
 // Admin pages
-Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/admin-user-management', \App\Livewire\Admin\UserManagement::class)->name('admin.userManagement');
-});
+// routes/web.php
+Route::middleware(['auth:admin'])         // ←  adjust if your guard differs
+->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        /* User-management dashboard */
+        Route::get('/user-management', UserManagement::class)
+            ->name('user-management');
+    });
+
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/reports', \App\Livewire\Admin\Reports::class)->name('admin.reports');
 });
@@ -80,6 +95,10 @@ Route::middleware(['auth:admin'])->group(function() {
 });
 Route::middleware(['auth:admin'])->group(function() {
     Route::get('/admin/news/create', App\Livewire\Admin\AddNews::class)->name('admin.news.add');
+});
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/events', \App\Livewire\Admin\ManageEventsPage::class)
+        ->name('admin.manage-events');
 });
 
 
@@ -100,6 +119,11 @@ Route::middleware(['auth:advisor'])->group(function () {
 Route::middleware(['auth:advisor'])->group(function() {
     Route::get('/advisor/news', \App\Livewire\Advisor\News::class)->name('advisor.news');
 });
+Route::middleware(['auth:advisor'])->group(function () {
+    Route::get('/advisor/manage-events', \App\Livewire\Advisor\ManageEventRegistrations::class)
+        ->name('advisor.manage-events');
+});
+
 
 
 
