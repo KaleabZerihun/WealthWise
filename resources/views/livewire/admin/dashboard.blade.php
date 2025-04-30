@@ -38,37 +38,7 @@
             </p>
         </div>
 
-        {{-- ────────── TOP ADVISORS TABLE ────────── --}}
-        <div class="bg-white rounded shadow p-6">
-            <h3 class="text-lg font-bold text-gray-700 mb-4">Top Advisors (by completed sessions)</h3>
 
-            @if($topAdvisors->count())
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Advisor</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Completed</th>
-                        </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach($topAdvisors as $adv)
-                            <tr>
-                                <td class="px-4 py-2 text-sm text-gray-700">
-                                    {{ $adv->first_name }} {{ $adv->last_name }}
-                                </td>
-                                <td class="px-4 py-2 text-sm text-gray-700">
-                                    {{ $adv->completed_appointments_count }}
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @else
-                <p class="text-gray-500">No advisor data yet.</p>
-            @endif
-        </div>
 
         {{-- ────────── PENDING APPOINTMENTS TABLE ────────── --}}
         <div class="bg-white rounded shadow p-6">
@@ -136,24 +106,6 @@
         </div>
 
 
-        {{-- ────────── USERS STILL UNVERIFIED ────────── --}}
-        <div class="bg-white rounded shadow p-6">
-            <h3 class="text-lg font-bold text-gray-700 mb-4">Unverified Users (7 days+)</h3>
 
-            @if($unverifiedList->count())
-                <ul class="divide-y divide-gray-200">
-                    @foreach($unverifiedList as $user)
-                        <li class="py-2 flex justify-between">
-                            <span>{{ $user->first_name }} {{ $user->last_name }} ({{ $user->email }})</span>
-                            <span class="text-sm text-gray-500">
-                                Joined {{ \Carbon\Carbon::parse($user->created_at)->format('M d, Y') }}
-                            </span>
-                        </li>
-                    @endforeach
-                </ul>
-            @else
-                <p class="text-gray-500">All users verified 🎉</p>
-            @endif
-        </div>
     </div>
 </div>

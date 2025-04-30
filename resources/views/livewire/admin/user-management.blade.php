@@ -28,7 +28,6 @@
         <div class="bg-white shadow-md rounded-lg p-6 mb-6 flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
             <select wire:model.live="filter"
                     class="border-gray-300 rounded p-2 w-full md:w-48 text-sm">
-                <option value="all">All Users</option>
                 <option value="clients">Clients</option>
                 <option value="advisors">Advisors</option>
                 <option value="admins">Admins</option>
