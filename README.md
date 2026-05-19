@@ -1,66 +1,99 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# WealthWise Financial Advising Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+WealthWise is a Laravel Livewire financial advising platform designed to help users manage their financial goals, track investments, book appointments with advisors, view market data, and access financial tools in one place.
 
-## About Laravel
+The project was built to make financial planning easier and more organized for different types of users. It includes a multi-user authentication system with separate access for regular users, financial advisors, and admins. Each role has its own dashboard and features, making the platform more realistic and useful for a financial advising system.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project Purpose
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Many people struggle with managing their finances because budgeting, investments, appointments, goals, and financial education are often separated across different tools. WealthWise brings these features together in one platform.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The goal of this project was to create a full-stack financial advising application where users can manage their financial information, advisors can support clients, and admins can manage the platform.
 
-## Learning Laravel
+## Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Multi-User Authentication
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Regular user login and dashboard
+- Advisor login and dashboard
+- Admin login and dashboard
+- Role-based access control
+- Separate protected pages for users, advisors, and admins
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### User Features
 
-## Laravel Sponsors
+- View a personalized financial dashboard
+- Manage investment portfolio
+- Buy and sell assets
+- Track financial goals
+- Create, edit, and delete goals
+- Book appointments with financial advisors
+- View appointment history
+- Use financial planning tools
+- View financial news
+- View market data
+- Register for events and workshops
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Financial Tools
 
-### Premium Partners
+- Budgeting calculator
+- Retirement planning calculator
+- Mortgage calculator
+- Loan payment calculator
+- Investment growth calculator
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Portfolio Features
 
-## Contributing
+- Track investment assets
+- View total portfolio value
+- View asset types such as stocks, ETFs, bonds, and real estate
+- Fetch current market prices
+- Calculate price changes and percentage changes
+- Sell full or partial asset quantities
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Advisor Features
 
-## Code of Conduct
+- Advisor dashboard
+- View client portfolio information
+- Manage advisor appointments
+- Create appointments for users
+- Reschedule appointments
+- Update appointment notes
+- View financial news
+- Manage event registrations
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Admin Features
 
-## Security Vulnerabilities
+- Admin dashboard
+- Manage users, advisors, and admins
+- Search and filter accounts
+- Edit user information
+- Delete users
+- Manage financial news
+- Create and manage events/workshops
+- View reports
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Events and Workshops
 
-## License
+- Admins can create, update, and delete events
+- Users can register and unregister for events
+- Advisors can manage event registrations
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Why We Built This App
+
+We built WealthWise to show how a financial advising platform could support users, advisors, and admins in one system.
+
+The app demonstrates real-world application features such as multi-role authentication, dashboards, appointment scheduling, portfolio tracking, financial calculators, market data, and admin management. It also helped us practice building a Laravel Livewire application with a clean user experience and role-based functionality.
+
+## Technologies Used
+
+- Laravel
+- Laravel Livewire
+- PHP
+- Blade
+- Tailwind CSS
+- Vite
+- SQLite / MySQL
+- Finnhub API
+- Laravel Authentication
+- Eloquent ORM
